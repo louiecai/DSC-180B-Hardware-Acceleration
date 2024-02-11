@@ -32,7 +32,7 @@ Note: `small_sample` file is already in the repository. The above steps make the
 ## Models
 Run `python xxx_train.py` to train the corresponding model, print the model accuracy on the test set, and save the model in `/models`.
 
-Note: Training models take a long time, you are reproduce the models by running above code. Or, you can download models [here](https://drive.google.com/drive/folders/1_sqHDKapqrQPw_6xNoGvAgTEd3-KmeGB?usp=drive_link), and put them in `/models`.
+Note: Training models take a long time, you can reproduce the models by running above code. Or, you can download models [here](https://drive.google.com/drive/folders/1_sqHDKapqrQPw_6xNoGvAgTEd3-KmeGB?usp=drive_link), and put them in `/models`.
 
 ## Simulation
 Run `python xxx_simulation.py` to simulate the model inferencing process. It simulates the following real-life situation: A trained model is saved on a device, sensors of the device record data on a hard disk, we input sequences of data into the model, and the model predicts the current human activity.
