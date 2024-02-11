@@ -13,12 +13,12 @@
 
 Please refer to the [Setup Guide](docs/Setup.md) for instructions on how to build and run the Docker image and container.
 
-## Python Environment Requirement
+### Python Environment Requirement
 
-### Version
+#### Version
 - Python 3.9 or higher
 
-### Required Libraries
+#### Required Libraries
 - scikit-learn
 - numpy
 - Pytorch (Local) - Note: We need access to a GPU for PyTorch; otherwise, set `enable_GPU=False` in the `config.py` file. The CUDA version should match the PyTorch version. Specific information can be found at [PyTorch Getting Started](https://pytorch.org/get-started/locally/).
