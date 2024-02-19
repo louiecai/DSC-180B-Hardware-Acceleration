@@ -13,7 +13,6 @@ baseline.py
 test.ipynb
 model_test.ipynb
 feature
-target
 
 # Keep .gitkeep files to preserve empty directories
 !.gitkeep
