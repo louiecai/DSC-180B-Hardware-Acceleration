@@ -5,9 +5,9 @@ seq_length = 300
 seq_interval = 40 
 
 
-# even if we set sequence interval, the train set size is still large, that sometimes causes cuda out of memory
+# even if we set sequence interval, the train set size is still large
 # here, after we shuffle the data set, we get 50% of data set. 
-training_size_scale = 0.5 
+training_size_scale = 1
 
 #Define environment we simulate on
 environment_name = "env1"
@@ -20,3 +20,9 @@ cnn_learning_rate = 0.0001
 #parameter for DNN
 dnn_epoch = 50
 dnn_learning_rate = 0.0001
+
+#parameter for LSTM
+LSTM_epoch = 75
+LSTM_learning_rate = 0.00005
+LSTM_training_size_scale = 1
+LSTM_batch_size = 64
