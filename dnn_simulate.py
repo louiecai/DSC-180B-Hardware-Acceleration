@@ -33,7 +33,7 @@ def dnn_simulate(env, dev):
     if GPU:
         act.append(ProfilerActivity.CUDA)
 
-    with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], profile_memory=True, record_shapes=True, with_stack=True) as prof:
+    with profile(activities=act, profile_memory=True, record_shapes=True, with_stack=True) as prof:
         with record_function("model_inference"):
             #################### Profiling this part##########################
             for i in range(10):
