@@ -8,7 +8,6 @@ import torchvision
 from typing import Optional, Union
 import pickle
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 class CNN(nn.Module):
@@ -29,7 +28,7 @@ class CNN(nn.Module):
     def forward(self, x):
         b,t,c = x.size()
 
-        out = self.layer1(x.permute(0,2,1)).to(device)
+        out = self.layer1(x.permute(0,2,1))
         
         out = self.act1(self.bn1(out))
 

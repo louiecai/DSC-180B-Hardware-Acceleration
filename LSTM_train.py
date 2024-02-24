@@ -7,7 +7,7 @@ import random
 import torchvision
 from typing import Optional, Union
 import pickle
-import model
+import model_util
 import configs
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -37,7 +37,7 @@ valid_target = torch.Tensor(valid_target).to(device)
 test_set = torch.Tensor(test_set).to(device)
 test_target = torch.Tensor(test_target).to(device)
 
-model = model.LSTMClassifier(52, 250, 25, 2).to(device)
+model = model_util.LSTMClassifier(52, 250, 25, 2).to(device)
 criterion = nn.CrossEntropyLoss()
 
 batch_size = configs.LSTM_batch_size

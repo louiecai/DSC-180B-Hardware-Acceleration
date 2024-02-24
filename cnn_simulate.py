@@ -7,44 +7,64 @@ import random
 import torchvision
 from typing import Optional, Union
 import pickle
-import model
+import model_util
 import configs
 from torch.profiler import profile, record_function, ProfilerActivity
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+def cnn_simulate(env, dev):
+    device = torch.device("cpu")
+    GPU = False
+    if dev == "gpu":
+        device = torch.device("cuda")
+        GPU = True
     
-model = model.CNN(25, 300, 52).to(device)
-model.load_state_dict(torch.load("./models/cnn_model.pth")) 
-with open ('small_sample', 'rb') as fp:
-    data_feature = pickle.load(fp)
-fp.close()
-model.eval()
-
-with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], profile_memory=True, record_shapes=True, with_stack=True) as prof:
-    with record_function("model_inference"):
-        #################### Profiling this part##########################
         
+    model = model_util.CNN(25, 300, 52).to(device)
+    if GPU:
+        model.load_state_dict(torch.load("./models/cnn_model.pth")) 
+    else:
+        model.load_state_dict(torch.load("./models/cnn_model.pth",map_location=torch.device('cpu')))   
 
-        input = torch.Tensor([data_feature[0]]).to(device)
-        output = model(input)
+    with open ('small_sample', 'rb') as fp:
+        data_feature = pickle.load(fp)
+    fp.close()
+    model.eval()
 
-        pred_index = torch.max(output, 1)[1]
+    act = [ProfilerActivity.CPU]
+    if GPU:
+        act.append(ProfilerActivity.CUDA)
 
-        pred = torch.max(output, 1)[1]
-        print("Activity ID: ", pred.item())
-        ##################################################################
+    with profile(activities=act, profile_memory=True, record_shapes=True, with_stack=True) as prof:
+        with record_function("model_inference"):
+            #################### Profiling this part##########################
+            for i in range(10):
+                input = torch.Tensor([data_feature[i]]).to(device)
+                output = model(input)
 
-txt = prof.key_averages().table(sort_by="self_cpu_memory_usage")
-path = "./profiling/cnn/table_"+ configs.environment_name +".txt"
-text_file = open(path, "w")
-text_file.write(txt)
-text_file.close()
+                pred = torch.max(output, 1)[1]
+                print("Activity ID: ", pred.item())
+            ##################################################################
 
-path = "./profiling/cnn/chromeTrace_"+ configs.environment_name +".json"
-prof.export_chrome_trace(path)
+    environment_name = env
+    rpath = "./profiling/"+ environment_name +"/cpu/CNN/"
+    if GPU:
+        rpath = "./profiling/"+ environment_name +"/gpu/CNN/"
+    elif dev=="fpga":
+        rpath = "./profiling/"+ environment_name +"/fpga/CNN/"
 
-path = "./profiling/cnn/profiler_stacks_cuda_"+ configs.environment_name +".txt"
-prof.export_stacks(path, "self_cuda_time_total")
+    txt = prof.key_averages().table(sort_by="self_cpu_memory_usage")
+    path = rpath +"table.txt"
+    text_file = open(path, "w")
+    text_file.write(txt)
+    text_file.close()
 
-path = "./profiling/cnn/profiler_stacks_cpu_"+ configs.environment_name +".txt"
-prof.export_stacks(path, "self_cpu_time_total")
+    path = rpath +"chromeTrace.json"
+    prof.export_chrome_trace(path)
+
+    if GPU:
+        path = rpath +"profiler_stacks_cuda.txt"
+        prof.export_stacks(path, "self_cuda_time_total")
+
+    path = rpath +"profiler_stacks_cpu.txt"
+    prof.export_stacks(path, "self_cpu_time_total")

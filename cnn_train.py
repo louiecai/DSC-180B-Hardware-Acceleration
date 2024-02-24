@@ -7,16 +7,15 @@ import random
 import torchvision
 from typing import Optional, Union
 import pickle
-import model
+import model_util
 import configs
+from torch.utils.data import Dataset, DataLoader
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 epochs = configs.cnn_epoch
 learning_rate= configs.cnn_learning_rate
 train_size = configs.training_size_scale
 
-
-    
 with open ('feature', 'rb') as fp:
     data_feature = pickle.load(fp)
 fp.close()
@@ -25,7 +24,20 @@ with open ('target', 'rb') as fp:
     data_target = pickle.load(fp)
 fp.close()
 
-cap = int(len(data_feature)*train_size - 10000*train_size)
+class CustomDataset(Dataset):
+    def __init__(self, features, targets):
+        self.features = features
+        self.targets = targets
+
+    def __len__(self):
+        return len(self.features)
+
+    def __getitem__(self, idx):
+        feature = torch.tensor(self.features[idx], dtype=torch.float32)
+        target = torch.tensor(self.targets[idx], dtype=torch.float32)
+        return feature, target
+    
+cap = int(len(data_feature)*train_size - 15000*train_size)
 train_set = data_feature[:cap]
 train_target = data_target[:cap]
 valid_set = data_feature[-15000:-10000]
@@ -33,23 +45,34 @@ valid_target = data_target[-15000:-10000]
 test_set = data_feature[-10000:]
 test_target = data_target[-10000:]
 
-train_set = torch.Tensor(train_set).to(device)
-train_target = torch.Tensor(train_target).to(device)
 valid_set = torch.Tensor(valid_set).to(device)
 valid_target = torch.Tensor(valid_target).to(device)
 test_set = torch.Tensor(test_set).to(device)
 test_target = torch.Tensor(test_target).to(device)
 
-model = model.CNN(25, 300, 52).to(device)
+train_dataset = CustomDataset(train_set, train_target)
+train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+
+model = model_util.CNN(25, 300, 52).to(device)
 criterion = nn.CrossEntropyLoss()
 
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 for i in range(epochs):
-    optimizer.zero_grad()
-    output = model(train_set)
-    loss =  criterion(output, train_target)
-    loss.backward()
-    optimizer.step()
+    model.train() 
+    running_loss = []
+    for batch in train_loader:
+        inputs, labels = batch
+        inputs, labels = inputs.to(device), labels.to(device)
+
+        optimizer.zero_grad()  
+        outputs = model(inputs)  
+        loss = criterion(outputs, labels) 
+        loss.backward()  
+        optimizer.step() 
+
+        running_loss.append(loss.item())
+
+    loss = np.mean(running_loss)
 
     model.eval()
     pred = model(valid_set)

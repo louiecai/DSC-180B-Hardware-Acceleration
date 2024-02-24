@@ -7,20 +7,22 @@ import random
 import torchvision
 from typing import Optional, Union
 import pickle
-import model
+import model_util
 import configs
 from torch.profiler import profile, record_function, ProfilerActivity
 import argparse
 
 
-def main(args):
+def LSTM_simulate(env, dev):
     device = torch.device("cpu")
-    if args.device == "gpu":
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print("GPU availabel: {}, Current device: {}".format(torch.cuda.is_available(), device))
-        
-    LSTM = model.LSTMClassifier(52, 250, 25, 2).to(device)
-    if torch.cuda.is_available() and args.device == "gpu":
+    GPU = False
+    if dev == "gpu":
+        device = torch.device("cuda")
+        GPU = True
+    
+ 
+    LSTM = model_util.LSTMClassifier(52, 250, 25, 2).to(device)
+    if GPU:
         LSTM.load_state_dict(torch.load("./models/LSTM.pth")) 
     else:
         LSTM.load_state_dict(torch.load("./models/LSTM.pth",map_location=torch.device('cpu'))) 
@@ -31,46 +33,40 @@ def main(args):
     LSTM.eval()
 
     act = [ProfilerActivity.CPU]
-    if args.device == "gpu" and torch.cuda.is_available():
+    if GPU:
         act.append(ProfilerActivity.CUDA)
 
     with profile(activities=act, profile_memory=True, record_shapes=True, with_stack=True) as prof:
         with record_function("model_inference"):
             #################### Profiling this part##########################
-            
+            for i in range(10):
+                input = torch.Tensor([data_feature[i]]).to(device)
+                output = LSTM(input)
 
-            input = torch.Tensor([data_feature[0]]).to(device)
-            output = LSTM(input)
-
-            pred_index = torch.max(output, 1)[1]
-
-            pred = torch.max(output, 1)[1]
-            print("Activity ID: ", pred.item())
+                pred = torch.max(output, 1)[1]
+                print("Activity ID: ", pred.item())
             ##################################################################
 
-    environment_name = args.env
+    environment_name = env
+    rpath = "./profiling/"+ environment_name +"/cpu/LSTM/"
+    if GPU:
+        rpath = "./profiling/"+ environment_name +"/gpu/LSTM/"
+    elif dev=="fpga":
+        rpath = "./profiling/"+ environment_name +"/fpga/LSTM/"
 
     txt = prof.key_averages().table(sort_by="self_cpu_memory_usage")
-    path = "./profiling/LSTM/table_"+ environment_name +".txt"
+    path = rpath +"table.txt"
     text_file = open(path, "w")
     text_file.write(txt)
     text_file.close()
 
-    path = "./profiling/LSTM/chromeTrace_"+ environment_name +".json"
+    path = rpath +"chromeTrace.json"
     prof.export_chrome_trace(path)
 
-    if args.device == "gpu" and torch.cuda.is_available():
-        path = "./profiling/LSTM/profiler_stacks_cuda_"+ environment_name +".txt"
+    if GPU:
+        path = rpath +"profiler_stacks_cuda.txt"
         prof.export_stacks(path, "self_cuda_time_total")
 
-    path = "./profiling/LSTM/profiler_stacks_cpu_"+ environment_name +".txt"
+    path = rpath +"profiler_stacks_cpu.txt"
     prof.export_stacks(path, "self_cpu_time_total")
 
-if __name__ == "__main__":
-    #Parse the input arguments
-    print(1)
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--env', type=str)
-    parser.add_argument('--device', type=str)
-    args = parser.parse_args()
-    main(args)
