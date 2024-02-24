@@ -33,11 +33,17 @@ Note: `small_sample` file is already in the repository. The above steps make the
 Run `python xxx_train.py` to train the corresponding model, print the model accuracy on the test set, and save the model in `/models`.
 
 Note: Training models take a long time, you can reproduce the models by running above code. Or, you can download models [here](https://drive.google.com/drive/folders/1_sqHDKapqrQPw_6xNoGvAgTEd3-KmeGB?usp=drive_link), and put them in `/models`.
+Or run this command to download large model `python download_model.py`, this command require `gdown` installed in python environment.
 
 ## Simulation
 Run `python xxx_simulation.py` to simulate the model inferencing process. It simulates the following real-life situation: A trained model is saved on a device, sensors of the device record data on a hard disk, we input sequences of data into the model, and the model predicts the current human activity.
 
 We use the PyTorch profiler to track the above program operations and save the profiling data in `/profiling/xxxModel/`. The JSON file can be loaded by Chrome tracer (`chrome://tracing`) and generate a visualization.
+
+Use following command to simulate all model for current environment.
+```
+python run_simulation.py --env "environment name" --gpu "True/False" --fpga "True/False"
+```
 
 ## Config
 Data generating parameters and model parameters are stored in `configs.py`. Details are explained in the config file.
