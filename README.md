@@ -36,11 +36,11 @@ Note: Training models take a long time, you can reproduce the models by running 
 Or run this command to download large model `python download_model.py`, this command require `gdown` installed in python environment.
 
 ## Simulation
-Run `python xxx_simulation.py` to simulate the model inferencing process. It simulates the following real-life situation: A trained model is saved on a device, sensors of the device record data on a hard disk, we input sequences of data into the model, and the model predicts the current human activity.
+In real-life situation, a trained model is saved on a device. Sensors on device store data on a hard disk. Model will read data on memory or harh disk and then input sequences of data into the model, then the model predicts the current human activity.
 
-We use the PyTorch profiler to track the above program operations and save the profiling data in `/profiling/xxxModel/`. The JSON file can be loaded by Chrome tracer (`chrome://tracing`) and generate a visualization.
+We use the PyTorch profiler to track the above program operations and save the profiling data in `/profiling/environmentName/modelName/`. The JSON file can be loaded by Chrome tracer (`chrome://tracing`) and generate a visualization.
 
-Use following command to simulate all model for current environment.
+Use following command to simulate all model on current environment.
 ```
 python run_simulation.py --env "environment name" --gpu "True/False" --other "True/False"
 ```
