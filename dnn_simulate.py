@@ -49,8 +49,8 @@ def dnn_simulate(env, dev):
     rpath = "./profiling/"+ environment_name +"/cpu/DNN/"
     if GPU:
         rpath = "./profiling/"+ environment_name +"/gpu/DNN/"
-    elif dev=="fpga":
-        rpath = "./profiling/"+ environment_name +"/fpga/DNN/"
+    elif dev=="other":
+        rpath = "./profiling/"+ environment_name +"/other/DNN/"
 
     txt = prof.key_averages().table(sort_by="self_cpu_memory_usage")
     path = rpath +"table.txt"
