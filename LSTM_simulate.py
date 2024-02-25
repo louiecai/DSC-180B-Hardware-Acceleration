@@ -51,8 +51,8 @@ def LSTM_simulate(env, dev):
     rpath = "./profiling/"+ environment_name +"/cpu/LSTM/"
     if GPU:
         rpath = "./profiling/"+ environment_name +"/gpu/LSTM/"
-    elif dev=="fpga":
-        rpath = "./profiling/"+ environment_name +"/fpga/LSTM/"
+    elif dev=="other":
+        rpath = "./profiling/"+ environment_name +"/other/LSTM/"
 
     txt = prof.key_averages().table(sort_by="self_cpu_memory_usage")
     path = rpath +"table.txt"
