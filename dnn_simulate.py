@@ -17,9 +17,6 @@ def dnn_simulate(env, dev):
     if dev == "gpu":
         device = torch.device("cuda")
         GPU = True
-    print("dnn with ", dev)
-    print(GPU)
-    print(device)
     model = model_util.DNN(300, 52, 25).to(device)
     if GPU:
         model.load_state_dict(torch.load("./models/dnn_model.pth")) 
@@ -54,18 +51,20 @@ def dnn_simulate(env, dev):
     elif dev=="other":
         rpath = "./profiling/"+ environment_name +"/other/DNN/"
 
-    txt = prof.key_averages().table(sort_by="self_cpu_memory_usage")
-    path = rpath +"table.txt"
+    txt = prof.key_averages().table(sort_by="cpu_time_total")
+    path = rpath +"time.txt"
     text_file = open(path, "w")
     text_file.write(txt)
     text_file.close()
 
+    txt = prof.key_averages(group_by_input_shape=True).table()
+    path = rpath +"shape.txt"
+    text_file = open(path, "w")
+    text_file.write(txt)
+    text_file.close()
+    
+
     path = rpath +"chromeTrace.json"
     prof.export_chrome_trace(path)
 
-    if GPU:
-        path = rpath +"profiler_stacks_cuda.txt"
-        prof.export_stacks(path, "self_cuda_time_total")
 
-    path = rpath +"profiler_stacks_cpu.txt"
-    prof.export_stacks(path, "self_cpu_time_total")

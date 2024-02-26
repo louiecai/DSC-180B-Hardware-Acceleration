@@ -54,8 +54,14 @@ def LSTM_simulate(env, dev):
     elif dev=="other":
         rpath = "./profiling/"+ environment_name +"/other/LSTM/"
 
-    txt = prof.key_averages().table(sort_by="self_cpu_memory_usage")
-    path = rpath +"table.txt"
+    txt = prof.key_averages().table(sort_by="cpu_time_total")
+    path = rpath +"time.txt"
+    text_file = open(path, "w")
+    text_file.write(txt)
+    text_file.close()
+
+    txt = prof.key_averages(group_by_input_shape=True).table()
+    path = rpath +"shape.txt"
     text_file = open(path, "w")
     text_file.write(txt)
     text_file.close()
@@ -63,10 +69,5 @@ def LSTM_simulate(env, dev):
     path = rpath +"chromeTrace.json"
     prof.export_chrome_trace(path)
 
-    if GPU:
-        path = rpath +"profiler_stacks_cuda.txt"
-        prof.export_stacks(path, "self_cuda_time_total")
 
-    path = rpath +"profiler_stacks_cpu.txt"
-    prof.export_stacks(path, "self_cpu_time_total")
 
