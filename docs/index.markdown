@@ -1,5 +1,7 @@
 # Enhancing Human Activity Recognition with Hardware Acceleration
 
+<!-- Link to this website: https://louiecai.github.io/DSC-180B-Hardware-Acceleration/ -->
+
 ## Home
 Welcome to our project page! This research focuses on improving Human Activity Recognition (HAR) through innovative hardware acceleration techniques. Stay tuned for updates and findings.
 
