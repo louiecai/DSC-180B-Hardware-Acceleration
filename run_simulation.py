@@ -11,25 +11,25 @@ from dnn_simulate import dnn_simulate
 def main(args):
     print("GPU availability: {}".format(torch.cuda.is_available()))
     GPU = False
-    FPGA = False
+    other = False
 
     if args.gpu=="True" and torch.cuda.is_available():
         GPU = True
     elif args.gpu=="True":
         print("GPU is not available on this environment")
-    if args.fpga=="True":
-        FPGA = True
+    if args.other=="True":
+        other = True
     env = args.env
     path = "profiling/"+env+"/"
     
 
-    if FPGA:
-        os.makedirs(path+"fpga/CNN")
-        cnn_simulate(env,"fpga")
-        os.makedirs(path+"fpga/DNN")
-        dnn_simulate(env,"fpga")
-        os.makedirs(path+"fpga/LSTM")
-        LSTM_simulate(env,"fpga")
+    if other:
+        os.makedirs(path+"other/CNN")
+        cnn_simulate(env,"other")
+        os.makedirs(path+"other/DNN")
+        dnn_simulate(env,"other")
+        os.makedirs(path+"other/LSTM")
+        LSTM_simulate(env,"other")
     else:
         os.makedirs(path+"cpu/CNN")
         cnn_simulate(env,"cpu")
@@ -55,6 +55,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--env', type=str)
     parser.add_argument('--gpu', type=str)
-    parser.add_argument('--fpga', type=str)
+    parser.add_argument('--other', type=str)
     args = parser.parse_args()
     main(args)

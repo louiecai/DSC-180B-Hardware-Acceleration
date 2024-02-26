@@ -50,8 +50,8 @@ def cnn_simulate(env, dev):
     rpath = "./profiling/"+ environment_name +"/cpu/CNN/"
     if GPU:
         rpath = "./profiling/"+ environment_name +"/gpu/CNN/"
-    elif dev=="fpga":
-        rpath = "./profiling/"+ environment_name +"/fpga/CNN/"
+    elif dev=="other":
+        rpath = "./profiling/"+ environment_name +"/other/CNN/"
 
     txt = prof.key_averages().table(sort_by="self_cpu_memory_usage")
     path = rpath +"table.txt"
