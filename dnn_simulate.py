@@ -11,7 +11,7 @@ import model_util
 import configs
 from torch.profiler import profile, record_function, ProfilerActivity
 
-def dnn_simulate(env, dev):
+def dnn_simulate(env, dev, trial):
     device = torch.device("cpu")
     GPU = False
     if dev == "gpu":
@@ -45,11 +45,11 @@ def dnn_simulate(env, dev):
             ##################################################################
 
     environment_name = env
-    rpath = "./profiling/"+ environment_name +"/cpu/DNN/"
+    rpath = "./profiling/"+ environment_name +"/trial_"+trial+"/cpu/DNN/"
     if GPU:
-        rpath = "./profiling/"+ environment_name +"/gpu/DNN/"
+        rpath = "./profiling/"+ environment_name +"/trial_"+trial+"/gpu/DNN/"
     elif dev=="other":
-        rpath = "./profiling/"+ environment_name +"/other/DNN/"
+        rpath = "./profiling/"+ environment_name +"/trial_"+trial+"/other/DNN/"
 
     txt = prof.key_averages().table(sort_by="cpu_time_total")
     path = rpath +"time.txt"

@@ -20,33 +20,35 @@ def main(args):
     if args.other=="True":
         other = True
     env = args.env
-    path = "profiling/"+env+"/"
+    trial = args.trial
+    path = "profiling/"+env+"/trial_" + trial +"/"
+    
     
 
     if other:
         os.makedirs(path+"other/CNN")
-        cnn_simulate(env,"other")
+        cnn_simulate(env,"other", trial)
         os.makedirs(path+"other/DNN")
-        dnn_simulate(env,"other")
+        dnn_simulate(env,"other", trial)
         os.makedirs(path+"other/LSTM")
-        LSTM_simulate(env,"other")
+        LSTM_simulate(env,"other", trial)
     else:
         os.makedirs(path+"cpu/CNN")
-        cnn_simulate(env,"cpu")
+        cnn_simulate(env,"cpu", trial)
         os.makedirs(path+"cpu/DNN")
-        dnn_simulate(env,"cpu")
+        dnn_simulate(env,"cpu", trial)
         os.makedirs(path+"cpu/LSTM")
-        LSTM_simulate(env,"cpu")
+        LSTM_simulate(env,"cpu", trial)
 
 
 
     if GPU:
         os.makedirs(path+"gpu/CNN")
-        cnn_simulate(env,"gpu")
+        cnn_simulate(env,"gpu", trial)
         os.makedirs(path+"gpu/DNN")
-        dnn_simulate(env,"gpu")
+        dnn_simulate(env,"gpu", trial)
         os.makedirs(path+"gpu/LSTM")
-        LSTM_simulate(env,"gpu")
+        LSTM_simulate(env,"gpu", trial)
 
 
 
@@ -56,5 +58,6 @@ if __name__ == "__main__":
     parser.add_argument('--env', type=str)
     parser.add_argument('--gpu', type=str)
     parser.add_argument('--other', type=str)
+    parser.add_argument('--trial', type=str)
     args = parser.parse_args()
     main(args)

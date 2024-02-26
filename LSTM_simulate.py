@@ -13,7 +13,7 @@ from torch.profiler import profile, record_function, ProfilerActivity
 import argparse
 
 
-def LSTM_simulate(env, dev):
+def LSTM_simulate(env, dev, trial):
     device = torch.device("cpu")
     GPU = False
     if dev == "gpu":
@@ -48,11 +48,11 @@ def LSTM_simulate(env, dev):
             ##################################################################
 
     environment_name = env
-    rpath = "./profiling/"+ environment_name +"/cpu/LSTM/"
+    rpath = "./profiling/"+ environment_name +"/trial_"+trial+"/cpu/LSTM/"
     if GPU:
-        rpath = "./profiling/"+ environment_name +"/gpu/LSTM/"
+        rpath = "./profiling/"+ environment_name +"/trial_"+trial+"/gpu/LSTM/"
     elif dev=="other":
-        rpath = "./profiling/"+ environment_name +"/other/LSTM/"
+        rpath = "./profiling/"+ environment_name +"/trial_"+trial+"/other/LSTM/"
 
     txt = prof.key_averages().table(sort_by="cpu_time_total")
     path = rpath +"time.txt"
@@ -69,5 +69,6 @@ def LSTM_simulate(env, dev):
     path = rpath +"chromeTrace.json"
     prof.export_chrome_trace(path)
 
+    
 
 

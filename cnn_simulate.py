@@ -12,7 +12,7 @@ import configs
 from torch.profiler import profile, record_function, ProfilerActivity
 
 
-def cnn_simulate(env, dev):
+def cnn_simulate(env, dev, trial):
     device = torch.device("cpu")
     GPU = False
     if dev == "gpu":
@@ -47,11 +47,11 @@ def cnn_simulate(env, dev):
             ##################################################################
 
     environment_name = env
-    rpath = "./profiling/"+ environment_name +"/cpu/CNN/"
+    rpath = "./profiling/"+ environment_name +"/trial_"+trial+"/cpu/CNN/"
     if GPU:
-        rpath = "./profiling/"+ environment_name +"/gpu/CNN/"
+        rpath = "./profiling/"+ environment_name +"/trial_"+trial+"/gpu/CNN/"
     elif dev=="other":
-        rpath = "./profiling/"+ environment_name +"/other/CNN/"
+        rpath = "./profiling/"+ environment_name +"/trial_"+trial+"/other/CNN/"
 
     txt = prof.key_averages().table(sort_by="cpu_time_total")
     path = rpath +"time.txt"
@@ -68,3 +68,8 @@ def cnn_simulate(env, dev):
     path = rpath +"chromeTrace.json"
     prof.export_chrome_trace(path)
 
+    txt = prof.key_averages(group_by_stack_n=5).table()
+    path = rpath +"test.txt"
+    text_file = open(path, "w")
+    text_file.write(txt)
+    text_file.close()
