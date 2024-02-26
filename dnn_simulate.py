@@ -17,7 +17,9 @@ def dnn_simulate(env, dev):
     if dev == "gpu":
         device = torch.device("cuda")
         GPU = True
-        
+    print("dnn with ", dev)
+    print(GPU)
+    print(device)
     model = model_util.DNN(300, 52, 25).to(device)
     if GPU:
         model.load_state_dict(torch.load("./models/dnn_model.pth")) 
@@ -33,7 +35,7 @@ def dnn_simulate(env, dev):
     if GPU:
         act.append(ProfilerActivity.CUDA)
 
-    with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], profile_memory=True, record_shapes=True, with_stack=True) as prof:
+    with profile(activities=act, profile_memory=True, record_shapes=True, with_stack=True) as prof:
         with record_function("model_inference"):
             #################### Profiling this part##########################
             for i in range(10):
