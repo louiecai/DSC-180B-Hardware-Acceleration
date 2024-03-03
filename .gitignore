@@ -22,3 +22,4 @@ t.ipynb
 !/models/Put_pth_here.txt
 !/models/LSTM.pth
 !/models/cnn.pth
+!/models/transformer.pth
