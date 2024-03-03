@@ -42,7 +42,7 @@ We use the PyTorch profiler to track the above program operations and save the p
 
 Use following command to simulate all model on current environment.
 ```
-python run_simulation.py --env "environment name" --gpu "True/False" --other "True/False"
+python run_simulation.py --env "environment name" --gpu "True/False" --other "True/False --trial #int"
 ```
 
 ## Config

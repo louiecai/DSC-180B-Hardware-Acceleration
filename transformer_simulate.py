@@ -10,55 +10,56 @@ import pickle
 import model_util
 import configs
 from torch.profiler import profile, record_function, ProfilerActivity
-import timeit 
+import argparse
+import timeit
 
 
-def cnn_simulate(env, dev, trial):
+def transformer_simulate(env, dev, trial):
     device = torch.device("cpu")
     GPU = False
     if dev == "gpu":
         device = torch.device("cuda")
         GPU = True
     
-        
-    model = model_util.CNN(25, 300, 52).to(device)
+    input_dim = 52  # Number of features per data point
+    d_model = 256  # Size of the Transformer embeddings
+    num_classes = 25  # Number of output classes
+    num_heads = 8  # Number of heads in the multi-head attention mechanism
+    num_layers = 3  # Number of Transformer layers
+    max_seq_len = 300  # Maximum sequence length
+
+    TF = model_util.TransformerClassifier(input_dim, d_model, num_classes, num_heads, num_layers, max_seq_len).to(device)
     if GPU:
-        model.load_state_dict(torch.load("./models/cnn_model.pth")) 
+        TF.load_state_dict(torch.load("./models/transformer.pth")) 
     else:
-        model.load_state_dict(torch.load("./models/cnn_model.pth",map_location=torch.device('cpu')))   
+        TF.load_state_dict(torch.load("./models/transformer.pth",map_location=torch.device('cpu'))) 
 
     with open ('small_sample', 'rb') as fp:
         data_feature = pickle.load(fp)
     fp.close()
-    model.eval()
+    TF.eval()
 
     act = [ProfilerActivity.CPU]
     if GPU:
         act.append(ProfilerActivity.CUDA)
 
-    
-
     with profile(activities=act, profile_memory=True, record_shapes=True, with_stack=True) as prof:
         with record_function("model_inference"):
             #################### Profiling this part##########################
-            
             for i in range(10):
                 input = torch.Tensor([data_feature[i]]).to(device)
-                
-                output = model(input)
+                output = TF(input)
 
                 pred = torch.max(output, 1)[1]
                 print("Activity ID: ", pred.item())
-            
-            
             ##################################################################
 
     environment_name = env
-    rpath = "./profiling/"+ environment_name +"/trial_"+trial+"/cpu/CNN/"
+    rpath = "./profiling/"+ environment_name +"/trial_"+trial+"/cpu/transformer/"
     if GPU:
-        rpath = "./profiling/"+ environment_name +"/trial_"+trial+"/gpu/CNN/"
+        rpath = "./profiling/"+ environment_name +"/trial_"+trial+"/gpu/transformer/"
     elif dev=="other":
-        rpath = "./profiling/"+ environment_name +"/trial_"+trial+"/other/CNN/"
+        rpath = "./profiling/"+ environment_name +"/trial_"+trial+"/other/transformer/"
 
     txt = prof.key_averages().table(sort_by="cpu_time_total")
     path = rpath +"time.txt"
@@ -75,20 +76,14 @@ def cnn_simulate(env, dev, trial):
     path = rpath +"chromeTrace.json"
     prof.export_chrome_trace(path)
 
-    txt = prof.key_averages(group_by_stack_n=5).table()
-    path = rpath +"test.txt"
-    text_file = open(path, "w")
-    text_file.write(txt)
-    text_file.close()
-
     txt = ""
     path = rpath +"large_sample_time.txt"
-    for i in [50, 100, 500, 1000, 5000]:
+    for i in [50, 100, 500, 1000]:
         torch.manual_seed(0)
         large_data = torch.rand(i, 300, 52).to(device)  
         try:
             starttime = timeit.default_timer()
-            model(large_data)
+            TF(large_data)
             endtime = timeit.default_timer()
             record = f"{i} samples, run time: {endtime - starttime}\n"
         except:
@@ -99,3 +94,7 @@ def cnn_simulate(env, dev, trial):
     text_file = open(path, "w")
     text_file.write(txt)
     text_file.close()
+
+    
+
+

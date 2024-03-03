@@ -10,6 +10,7 @@ import pickle
 
 
 
+
 class CNN(nn.Module):
 
     def __init__(self, n_class, n_seq, n_feature):
@@ -90,4 +91,44 @@ class LSTMClassifier(nn.Module):
         
         out, (hn, cn) = self.lstm(x, (h0.detach(), c0.detach()))
         out = self.linear(out[:, -1, :])
+        return out
+    
+class TransformerClassifier(nn.Module):
+    def __init__(self, input_dim, d_model, num_classes, num_heads, num_layers, max_seq_len, dropout=0.1):
+        super(TransformerClassifier, self).__init__()
+        
+        self.d_model = d_model
+        self.num_classes = num_classes
+        self.scale = torch.sqrt(torch.FloatTensor([d_model]))
+        
+        self.feature_embedding = nn.Linear(input_dim, d_model)
+        
+        self.positional_encoding = self.create_positional_encoding(max_seq_len, d_model)
+        
+        encoder_layer = nn.TransformerEncoderLayer(d_model=d_model, nhead=num_heads, dropout=dropout)
+        self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
+        
+        self.classifier = nn.Linear(d_model, num_classes)
+        
+    def create_positional_encoding(self, max_len, d_model):
+        pe = torch.zeros(max_len, d_model)
+        position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)
+        div_term = torch.exp(torch.arange(0, d_model, 2).float() * -(torch.log(torch.tensor(10000.0)) / d_model))
+        pe[:, 0::2] = torch.sin(position * div_term)
+        pe[:, 1::2] = torch.cos(position * div_term)
+        pe = pe.unsqueeze(0)
+        return pe
+    
+    def forward(self, x):
+        x = self.feature_embedding(x) * self.scale.to(x.device) 
+        pe = self.positional_encoding[:,:x.size(1),:].to(x.device)
+        x = x + pe
+        
+        x = x.permute(1, 0, 2)
+        
+        x = self.transformer_encoder(x)
+        
+        x = x[0, :, :]
+    
+        out = self.classifier(x)
         return out

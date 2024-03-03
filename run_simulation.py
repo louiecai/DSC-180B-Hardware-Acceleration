@@ -7,6 +7,7 @@ import sys
 from LSTM_simulate import LSTM_simulate
 from cnn_simulate import cnn_simulate
 from dnn_simulate import dnn_simulate
+from transformer_simulate import transformer_simulate
 
 def main(args):
     print("GPU availability: {}".format(torch.cuda.is_available()))
@@ -32,6 +33,8 @@ def main(args):
         dnn_simulate(env,"other", trial)
         os.makedirs(path+"other/LSTM")
         LSTM_simulate(env,"other", trial)
+        os.makedirs(path+"other/transformer")
+        transformer_simulate(env,"other", trial)
     else:
         os.makedirs(path+"cpu/CNN")
         cnn_simulate(env,"cpu", trial)
@@ -39,6 +42,8 @@ def main(args):
         dnn_simulate(env,"cpu", trial)
         os.makedirs(path+"cpu/LSTM")
         LSTM_simulate(env,"cpu", trial)
+        os.makedirs(path+"cpu/transformer")
+        transformer_simulate(env,"cpu", trial)
 
 
 
@@ -49,6 +54,8 @@ def main(args):
         dnn_simulate(env,"gpu", trial)
         os.makedirs(path+"gpu/LSTM")
         LSTM_simulate(env,"gpu", trial)
+        os.makedirs(path+"gpu/transformer")
+        transformer_simulate(env,"gpu", trial)
 
 
 

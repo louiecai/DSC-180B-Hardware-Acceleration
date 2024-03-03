@@ -11,6 +11,7 @@ import model_util
 import configs
 from torch.profiler import profile, record_function, ProfilerActivity
 import argparse
+import timeit
 
 
 def LSTM_simulate(env, dev, trial):
@@ -68,6 +69,27 @@ def LSTM_simulate(env, dev, trial):
 
     path = rpath +"chromeTrace.json"
     prof.export_chrome_trace(path)
+
+    txt = ""
+    path = rpath +"large_sample_time.txt"
+    for i in [50, 100, 500, 1000, 2000]:
+        torch.manual_seed(0)
+        large_data = torch.rand(i, 300, 52).to(device)  
+        try:
+            starttime = timeit.default_timer()
+            LSTM(large_data)
+            endtime = timeit.default_timer()
+            record = f"{i} samples, run time: {endtime - starttime}\n"
+        except:
+            record = f"{i} samples: failed\n"
+            txt += record
+            break
+        txt += record
+    text_file = open(path, "w")
+    text_file.write(txt)
+    text_file.close()
+
+    
 
     
 

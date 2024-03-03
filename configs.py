@@ -26,3 +26,10 @@ LSTM_epoch = 75
 LSTM_learning_rate = 0.00005
 LSTM_training_size_scale = 1
 LSTM_batch_size = 64
+
+#parameter for transformer
+
+T_epoch = 50
+T_learning_rate = 0.000025
+T_training_size_scale = 1
+T_batch_size = 256

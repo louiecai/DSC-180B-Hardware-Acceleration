@@ -10,6 +10,7 @@ import pickle
 import model_util
 import configs
 from torch.profiler import profile, record_function, ProfilerActivity
+import timeit
 
 def dnn_simulate(env, dev, trial):
     device = torch.device("cpu")
@@ -67,4 +68,22 @@ def dnn_simulate(env, dev, trial):
     path = rpath +"chromeTrace.json"
     prof.export_chrome_trace(path)
 
+    txt = ""
+    path = rpath +"large_sample_time.txt"
+    for i in [50, 100, 500, 1000, 5000]:
+        torch.manual_seed(0)
+        large_data = torch.rand(i, 300, 52).to(device)  
+        try:
+            starttime = timeit.default_timer()
+            model(large_data)
+            endtime = timeit.default_timer()
+            record = f"{i} samples, run time: {endtime - starttime}\n"
+        except:
+            record = f"{i} samples: failed\n"
+            txt += record
+            break
+        txt += record
+    text_file = open(path, "w")
+    text_file.write(txt)
+    text_file.close()
 
