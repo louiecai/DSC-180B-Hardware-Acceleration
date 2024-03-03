@@ -66,5 +66,6 @@ if __name__ == "__main__":
     parser.add_argument('--gpu', type=str)
     parser.add_argument('--other', type=str)
     parser.add_argument('--trial', type=str)
+    
     args = parser.parse_args()
     main(args)
