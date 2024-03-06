@@ -19,3 +19,9 @@ env 8-13 introduce different gpus to measure impact while attempting to hold vcp
 | env11       | g3.4xlarge	  | 16   | 122 GiB    | Intel Xeon E5 2686 v4    | 1   | 8 GiB      | NVIDIA Tesla M60 |
 | env12       | g4dn.4xlarge | 16   | 64 GiB     | Intel Cascade Lake       | 1   | 16 GiB     | NVIDIA T4        |
 | env13       | g5.4xlarge   | 16   | 64 GiB     | AMD EPYC Gen2            | 1   | 24 GiB     | NVIDIA A10G      |
+| datahub1       | N/A   | 1 core    | 8.0 GiB    | xxx            | 1   | N/A        | 2080ti        |
+| datahub2      | N/A   | 1 core    | 8.0 GiB    | xxx          | 1   | N/A        | a5000          |
+| datahub1       | N/A   | 2 core    | 8.0 GiB    | xxx            | 1   | N/A        | 2080ti        |
+| datahub2      | N/A   | 2 core    | 8.0 GiB    | xxx          | 1   | N/A        | a5000          |
+| datahub1       | N/A   | 4 core    | 8.0 GiB    | xxx            | 1   | N/A        | 2080ti        |
+| datahub2      | N/A   | 4 core    | 8.0 GiB    | xxx          | 1   | N/A        | a5000          |
