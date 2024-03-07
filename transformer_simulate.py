@@ -17,9 +17,12 @@ import timeit
 def transformer_simulate(env, dev, trial):
     device = torch.device("cpu")
     GPU = False
+    GPU2 = False
     if dev == "gpu":
         device = torch.device("cuda")
         GPU = True
+    if torch.cuda.is_available():
+        GPU2 = True
     
     input_dim = 52  # Number of features per data point
     d_model = 256  # Size of the Transformer embeddings
@@ -76,7 +79,7 @@ def transformer_simulate(env, dev, trial):
     path = rpath +"chromeTrace.json"
     prof.export_chrome_trace(path)
 
-    if GPU:
+    if GPU2:
         txt = ""
         path = rpath +"large_sample_time.txt"
         len_list = [50, 100, 500, 1000]

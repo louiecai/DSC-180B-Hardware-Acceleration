@@ -32,7 +32,10 @@ def main(args):
         os.makedirs(path+"other/DNN")
         dnn_simulate(env,"other", trial)
         os.makedirs(path+"other/LSTM")
-        LSTM_simulate(env,"other", trial)
+        try:   
+            LSTM_simulate(env,"other", trial)
+        except:
+            print("Skip LSTM, cuda version issue")
         os.makedirs(path+"other/transformer")
         transformer_simulate(env,"other", trial)
     else:
@@ -41,7 +44,10 @@ def main(args):
         os.makedirs(path+"cpu/DNN")
         dnn_simulate(env,"cpu", trial)
         os.makedirs(path+"cpu/LSTM")
-        LSTM_simulate(env,"cpu", trial)
+        try:
+            LSTM_simulate(env,"cpu", trial)
+        except:
+            pass
         os.makedirs(path+"cpu/transformer")
         transformer_simulate(env,"cpu", trial)
 
@@ -53,7 +59,10 @@ def main(args):
         os.makedirs(path+"gpu/DNN")
         dnn_simulate(env,"gpu", trial)
         os.makedirs(path+"gpu/LSTM")
-        LSTM_simulate(env,"gpu", trial)
+        try:
+            LSTM_simulate(env,"gpu", trial)
+        except:
+            pass
         os.makedirs(path+"gpu/transformer")
         transformer_simulate(env,"gpu", trial)
 

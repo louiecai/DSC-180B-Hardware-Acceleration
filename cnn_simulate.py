@@ -16,9 +16,13 @@ import timeit
 def cnn_simulate(env, dev, trial):
     device = torch.device("cpu")
     GPU = False
+    GPU2 = False
     if dev == "gpu":
         device = torch.device("cuda")
         GPU = True
+    if torch.cuda.is_available():
+        GPU2 = True
+        
     
         
     model = model_util.CNN(25, 300, 52).to(device)
@@ -81,7 +85,8 @@ def cnn_simulate(env, dev, trial):
     text_file.write(txt)
     text_file.close()
 
-    if GPU:
+       
+    if GPU2:
         txt = ""
         path = rpath +"large_sample_time.txt"
         len_list = [50, 100, 500, 1000, 5000]

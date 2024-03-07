@@ -15,9 +15,13 @@ import timeit
 def dnn_simulate(env, dev, trial):
     device = torch.device("cpu")
     GPU = False
+    GPU2 = False
     if dev == "gpu":
         device = torch.device("cuda")
         GPU = True
+    if torch.cuda.is_available():
+        GPU2 = True    
+        
     model = model_util.DNN(300, 52, 25).to(device)
     if GPU:
         model.load_state_dict(torch.load("./models/dnn_model.pth")) 
@@ -68,7 +72,7 @@ def dnn_simulate(env, dev, trial):
     path = rpath +"chromeTrace.json"
     prof.export_chrome_trace(path)
 
-    if GPU:
+    if GPU2:
         txt = ""
         path = rpath +"large_sample_time.txt"
         len_list = [50, 100, 500, 1000, 5000]
