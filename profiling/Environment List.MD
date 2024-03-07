@@ -23,5 +23,5 @@ env 8-13 introduce different gpus to measure impact while attempting to hold vcp
 | datahub2      | N/A   | 2 core    | 32.0 GiB    | Intel(R) Xeon(R) Gold 5218            | 1   | N/A        | 2080ti          |1 trial|
 | datahub3       | N/A   | 4 core    | 32.0 GiB    | Intel(R) Xeon(R) Gold 5218             | 1   | N/A        | 2080ti        |1 trial|
 | datahub4      | N/A   | 8 core    | 32.0 GiB    | Intel(R) Xeon(R) Gold 5218           | 1   | N/A        | 2080ti          |1 trial|
-| datahub5       | N/A   | 4 core    | 8.0 GiB    | xxx            | 1   | N/A        | 2080ti        ||
+| datahub5       | N/A   | 12 core    | 32.0 GiB    | Intel(R) Xeon(R) Gold 5218             | 1   | N/A        | 2080ti        |1 trial|
 | datahub6      | N/A   | 4 core    | 8.0 GiB    | xxx          | 1   | N/A        | a5000          ||
