@@ -1,6 +1,6 @@
 ```angular2html
 env 1-4 are testing the increase in vcpus while scaling memory proportionally.
-env 5-7 hold the number of vcpus constant at 2, while scaling the memory to see its direct relationship.
+env 5-7 hold the number of vcpus constant at 4 and the cpu type constant, while scaling the memory to see its direct relationship.
 env 8-13 introduce different gpus to measure impact while attempting to hold vcpus and memory constant using available instance configurations.
 ```
 
