@@ -6,10 +6,10 @@ env 8-13 introduce different gpus to measure impact while attempting to hold vcp
 
 | Environment | Instance     | vCPU | CPU Memory | CPU Type                 | GPU | GPU Memory | GPU Type         |
 |-------------|--------------|------|------------|--------------------------|-----|------------|------------------|
-| env1        | c6g.medium   | 1    | 2.0 GiB    | AWS Graviton2            | 0   | N/A        | N/A              |
-| env2        | c6a.large    | 2    | 4.0 GiB    | AWS Graviton2            | 0   | N/A        | N/A              |
-| env3        | c6a.xlarge   | 4    | 8.0 GiB    | AWS Graviton2            | 0   | N/A        | N/A              |
-| env4        | c6a.2xlarge  | 8    | 16.0 GiB   | AWS Graviton2            | 0   | N/A        | N/A              |
+| env1        |    | 1    | 2.0 GiB    |             | 0   | N/A        | N/A              |
+| env2        | c6a.large    | 2    | 4.0 GiB    | AMD EPYC Gen3            | 0   | N/A        | N/A              |
+| env3        | c6a.xlarge   | 4    | 8.0 GiB    | AMD EPYC Gen3            | 0   | N/A        | N/A              |
+| env4        | c6a.2xlarge  | 8    | 16.0 GiB   | AMD EPYC Gen3            | 0   | N/A        | N/A              |
 | env5        | c1.medium    | 2    | 1.7 GiB    | Intel Xeon E5-2670       | 0   | N/A        | N/A              |
 | env6        | r5.large     | 2    | 16.0 GiB   | Intel Xeon Platinum 8000 | 0   | N/A        | N/A              |
 | env7        | x2gd.large   | 2    | 32.0 GiB   | AWS Graviton2            | 0   | N/A        | N/A              |
