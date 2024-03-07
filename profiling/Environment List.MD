@@ -14,9 +14,9 @@ env 11-16 introduce different gpus to measure impact while attempting to hold vc
 | env5        | c6i.xlarge  | 4    | 8 GiB    | Intel Xeon 8375C (Ice Lake)  | 0   | N/A        | N/A              |
 | env6        | m6i.xlarge   | 4    | 16.0 GiB   | Intel Xeon 8375C (Ice Lake) | 0   | N/A        | N/A              |
 | env7        | r6i.xlarge   | 4    | 32.0 GiB   | Intel Xeon 8375C (Ice Lake) | 0   | N/A        | N/A              |
-| env8        | r6i.large  | 2    | 16.0 GiB    |   | 0   | N/A        | N/A              |
-| env9        | m6i.xlarge   | 4    | 16.0 GiB   |  | 0   | N/A        | N/A              |
-| env10        | c6i.2xlarge   | 8    | 16.0 GiB   |  | 0   | N/A        | N/A              |
+| env8        | r6i.large  | 2    | 16.0 GiB    | Intel Xeon 8375C (Ice Lake)  | 0   | N/A        | N/A              |
+| env9        | m6i.xlarge   | 4    | 16.0 GiB   | Intel Xeon 8375C (Ice Lake) | 0   | N/A        | N/A              |
+| env10        | c6i.2xlarge   | 8    | 16.0 GiB   | Intel Xeon 8375C (Ice Lake) | 0   | N/A        | N/A              |
 | env11       | g3s.xlarge	  | 4    | 30.5	GiB   | Intel Xeon E5 2686 v4    | 1   | 8 GiB      | NVIDIA Tesla M60 |
 | env12       | g4dn.xlarge  | 4    | 16 GiB     | Intel Cascade Lake       | 1   | 16 GiB     | NVIDIA T4        |
 | env13       | g5.xlarge    | 4    | 16 GiB     | AMD EPYC Gen2            | 1   | 24 GiB     | NVIDIA A10G      |
