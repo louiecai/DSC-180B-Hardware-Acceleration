@@ -32,3 +32,4 @@ env 11-16 introduce different gpus to measure impact while attempting to hold vc
 | datahub8       | N/A   | 4 core    | 32.0 GiB    | AMD EPYC 7543P            | 1   | N/A        | a5000        |1 trial|
 | datahub9      | N/A   | 8 core    | 32.0 GiB    | AMD EPYC 7543P           | 1   | N/A        | a5000          |1 trial|
 | datahub10       | N/A   | 12 core    | 32.0 GiB    | AMD EPYC 7543P           | 1   | N/A        | a5000        |1 trial|
+| random1       | N/A   | 8 core    | 32.0 GiB    | Intel(R) i7-10700F           | 1   | 12 GiB        | 3080ti        |1 trial|
