@@ -6,16 +6,16 @@ env 11-16 introduce different gpus to measure impact while attempting to hold vc
 ```
 | Environment | Instance     | vCPU | CPU Memory | CPU Type                 | GPU | GPU Memory | GPU Type         | done |
 |-------------|--------------|------|------------|--------------------------|-----|------------|------------------|------|
-| env1        | c7a.medium   | 1    | 2.0 GiB    | AMD EPYC Gen4            | 0   | N/A        | N/A              |
-| env2        | c7a.large    | 2    | 4.0 GiB    | AMD EPYC Gen4            | 0   | N/A        | N/A              |
-| env3        | c7a.xlarge   | 4    | 8.0 GiB    | AMD EPYC Gen4            | 0   | N/A        | N/A              |
-| env4        | c7a.2xlarge  | 8    | 16.0 GiB   | AMD EPYC Gen4            | 0   | N/A        | N/A              |
-| env5        | c6i.xlarge  | 4    | 8 GiB    | Intel Xeon 8375C (Ice Lake)  | 0   | N/A        | N/A              |
-| env6        | m6i.xlarge   | 4    | 16.0 GiB   | Intel Xeon 8375C (Ice Lake) | 0   | N/A        | N/A              |
-| env7        | r6i.xlarge   | 4    | 32.0 GiB   | Intel Xeon 8375C (Ice Lake) | 0   | N/A        | N/A              |
-| env8        | r6i.large  | 2    | 16.0 GiB    | Intel Xeon 8375C (Ice Lake)  | 0   | N/A        | N/A              |
-| env9        | m6i.xlarge   | 4    | 16.0 GiB   | Intel Xeon 8375C (Ice Lake) | 0   | N/A        | N/A              |
-| env10        | c6i.2xlarge   | 8    | 16.0 GiB   | Intel Xeon 8375C (Ice Lake) | 0   | N/A        | N/A              |
+| env1        | c7a.medium   | 1    | 2.0 GiB    | AMD EPYC Gen4            | 0   | N/A        | N/A              |3 trial|
+| env2        | c7a.large    | 2    | 4.0 GiB    | AMD EPYC Gen4            | 0   | N/A        | N/A              |3 trial|
+| env3        | c7a.xlarge   | 4    | 8.0 GiB    | AMD EPYC Gen4            | 0   | N/A        | N/A              |3 trial|
+| env4        | c7a.2xlarge  | 8    | 16.0 GiB   | AMD EPYC Gen4            | 0   | N/A        | N/A              |3 trial|
+| env5        | c6i.xlarge  | 4    | 8 GiB    | Intel Xeon 8375C (Ice Lake)  | 0   | N/A        | N/A              |3 trial|
+| env6        | m6i.xlarge   | 4    | 16.0 GiB   | Intel Xeon 8375C (Ice Lake) | 0   | N/A        | N/A              |3 trial|
+| env7        | r6i.xlarge   | 4    | 32.0 GiB   | Intel Xeon 8375C (Ice Lake) | 0   | N/A        | N/A              |3 trial|
+| env8        | r6i.large  | 2    | 16.0 GiB    | Intel Xeon 8375C (Ice Lake)  | 0   | N/A        | N/A              |3 trial|
+| env9        | m6i.xlarge   | 4    | 16.0 GiB   | Intel Xeon 8375C (Ice Lake) | 0   | N/A        | N/A              |3 trial|
+| env10        | c6i.2xlarge   | 8    | 16.0 GiB   | Intel Xeon 8375C (Ice Lake) | 0   | N/A        | N/A              |3 trial|
 | env11       | g3s.xlarge	  | 4    | 30.5	GiB   | Intel Xeon E5 2686 v4    | 1   | 8 GiB      | NVIDIA Tesla M60 |
 | env12       | g4dn.xlarge  | 4    | 16 GiB     | Intel Cascade Lake       | 1   | 16 GiB     | NVIDIA T4        |
 | env13       | g5.xlarge    | 4    | 16 GiB     | AMD EPYC Gen2            | 1   | 24 GiB     | NVIDIA A10G      |
