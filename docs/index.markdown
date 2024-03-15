@@ -19,7 +19,9 @@ Our work is important because HAR systems are a big part of many technologies we
 - Wearable devices that monitor health
 - Systems that help homes adapt to our needs
 
-### How HAR Works
+### WHat is Human Activity Recognition (HAR)?
+
+Human Activity Recognition (HAR) is a technology that uses sensors to identify and classify human activities. It's used in a wide range of applications, from fitness trackers to smart homes. Here's a simple illustration of how it works:
 
 <img src="network_illustration.png" alt="HAR Network" style="width: 100%; display: block;" />
 
