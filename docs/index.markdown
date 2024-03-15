@@ -8,17 +8,50 @@ Welcome to our project page! This research focuses on improving Human Activity R
 
 ## **About**
 
-This project pioneers the enhancement of Human Activity Recognition (HAR) through <b>specialized hardware acceleration</b>, moving beyond traditional software optimization approaches. By addressing the inefficiencies of current technologies in processing HAR tasks, our aim is to <b>dramatically improve system performance, reduce response times, and eliminate operational bottlenecks</b>. This breakthrough is set to enhance the effectiveness and efficiency of HAR applications, making a significant impact across various fields such as wearable technology, healthcare, and intelligent home systems.
+This project is focused on improving Human Activity Recognition (HAR) by using **specialized hardware**. Here's what we aim to achieve:
 
-The significance of our endeavor is underscored by the critical role that HAR systems play in modern applications—from monitoring health vitals to facilitating seamless interaction within smart environments. By focusing on hardware acceleration, we target the core challenges of slow processing and high energy demands prevalent in existing systems. The outcome is anticipated to be more agile, reliable, and energy-efficient solutions that cater more effectively to their intended uses, thereby <b>improving the quality of life and operational efficiency</b> in numerous applications.
+- **Boost Performance**: Making HAR systems <span style="color: #28a745;">faster and more efficient</span>.
+- **Reduce Response Times**: Ensuring actions and responses are quicker.
+- **Eliminate Bottlenecks**: Smoothing out any delays in the system.
 
-The potential impact of our project is profound. In the realm of wearable technology, it promises to enhance device performance and user experience. In healthcare, it could lead to more accurate and real-time monitoring of patients, potentially saving lives.
-For smart home systems, our advancements aim to bring about smarter, more responsive environments that adapt to the needs of their inhabitants.
-Through this project, we are not just advancing technology but also paving the way for a future where technology more seamlessly integrates into and enhances every aspect of our daily lives.
+Our work is important because HAR systems are a big part of many technologies we use every day, like:
+
+- Wearable devices that monitor health
+- Systems that help homes adapt to our needs
+
+### How HAR Works
+
+<img src="network_illustration.png" alt="HAR Network" style="width: 100%; display: block;" />
+
+<!-- explain how the HAR works -->
+
+As the illustration shows, the HAR system uses **neural networks** to process data from sensors and identify human activities. These networks are trained to recognize patterns in the data, like the movements of a person's body.
+
+The central issue we're addressing is that these networks can be very **_slow and inefficient_**, espcially on devices with limited processing power. Our project aims to make these systems faster and more efficient by leveraging hardware acceleration.
+
+### Why This Matters
+
+- **Better Devices**: Enhancing performance and user experience in wearable tech.
+- **Healthcare Advances**: Offering real-time health monitoring, <span style="color: #dc3545;">potentially saving lives</span>.
+- **Smarter Homes**: Creating responsive environments that adjust to what people need.
+
+Through our project, we're not just improving technology. We're working to make it blend more seamlessly into our lives, enhancing every aspect of daily living.
+
+<details>
+<summary><b>More on Our Approach</b></summary>
+<p>In diving deeper into our project:</p>
+<ul>
+  <li>We're moving past traditional software optimization to leverage <span style="color: #17a2b8;">hardware acceleration</span>.</li>
+  <li>This shift addresses the current inefficiencies in processing HAR tasks, promising substantial improvements in system performance and energy usage.</li>
+  <li>By tackling these core challenges, we anticipate our solutions will be more agile, reliable, and suited to their intended uses, significantly improving operational efficiency and the quality of life.</li>
+</ul>
+<p>Our efforts aim to impact various fields significantly, including wearable technology, healthcare, and intelligent home systems, marking a significant stride toward a future where technology enhances every aspect of our lives in real time.</p>
+
+</details>
 
 ## Methodology
 
-### Data Collection and Analysis Process
+### Development Setup
 
 The data collection process for our project is meticulously designed to evaluate the performance of Human Activity Recognition (HAR) neural networks across a spectrum of hardware configurations. Key components of this process include:
 
@@ -27,7 +60,7 @@ The data collection process for our project is meticulously designed to evaluate
 - **Execution Scripts**: Automation scripts are crucial for streamlining the data collection process. These scripts orchestrate the setup, execution, and data gathering across different hardware setups, ensuring efficiency and accuracy in our findings.
 
 <details>
-<summary><b>More on Hardware Configurations and Data Collection</b></summary>
+<summary><b>More on Hardware Configurations</b></summary>
 
 <p>In the context of our research, we explore a diverse array of hardware configurations to understand their impact on HAR system performance. This exploration includes but is not limited to:</p>
 <ul>
@@ -130,6 +163,16 @@ The data collection process for our project is meticulously designed to evaluate
 
 </details>
 
+### Data Collection
+
+The networks are executed on the target hardware environments, and the execution traces are recorded. The data is then processed and analyzed to draw insights into performance variations, efficiency gains, and potential bottlenecks in HAR applications.
+
+Here is an example of what the collected execution trace looks like:
+
+<img src="execution_trace.png" alt="Execution Trace" style="width: 100%; display: block;" />
+
+This execution trace is then processed as numbers and analyzed to draw insights into performance variations, efficiency gains, and potential bottlenecks in HAR applications.
+
 ## Results
 
 <div style="display: grid; place-items: center; min-height: 100vh;">
@@ -140,14 +183,4 @@ The data collection process for our project is meticulously designed to evaluate
 
 </div>
 
-## Discussion
-
-(Placeholder for discussion on the findings, implications, and potential future work)
-
-## References
-
-(Placeholder for citing all references and resources used in the project)
-
-## Contact
-
-Information on how to get in touch with the team for questions or collaborations.
+## Conclusion
